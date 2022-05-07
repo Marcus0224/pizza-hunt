@@ -23,13 +23,18 @@ const pizzaController = {
     // get one pizza by id
     getPizzaById({ params }, res) {
         Pizza.findOne({ _id: params.id })
-            .then(dbPizzaData => {
-                // if no pizza is found
-                if (!dbPizzaData) {
-                res.status(404).json({ message: 'No pizza found with that id'});
-                return;
-                }
-                res.json(dbPizzaData);
+        .populate({
+            path: 'comments',
+            select: '-__v'
+        })
+        .select('-__v')
+        .then(dbPizzaData => {
+        // if no pizza is found
+        if (!dbPizzaData) {
+        res.status(404).json({ message: 'No pizza found with that id'});
+            return;
+            }
+            res.json(dbPizzaData);
             })
             .catch(err => {
                 console.log(err);
