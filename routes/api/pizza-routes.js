@@ -6,7 +6,6 @@ const {
     createPizza,
     updatePizza,
     deletePizza,
-    getAllPizza
 } = require('../../controllers/pizza-controller');
 
 //Set up Get all and Post at /api/pizzas
