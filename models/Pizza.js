@@ -33,7 +33,7 @@ const PizzaSchema = new Schema(
   );
 
 // get total count of comment and replies on retreival
-PizzaSchema.virtual('CommentCount').length(function() {
+PizzaSchema.virtual('CommentCount').get(function() {
     return this.Comment.length;
 });
 

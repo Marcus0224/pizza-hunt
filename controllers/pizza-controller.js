@@ -1,3 +1,4 @@
+const { path } = require('express/lib/application');
 const res = require('express/lib/response');
 const { Pizza } = require('../models');
 const { db } = require('../models/Pizza');
@@ -6,6 +7,12 @@ const pizzaController = {
     // get all pizzas 
     getAllPizza(req, res) {
         Pizza.find({})
+        .populate({
+            path: 'comments',
+            select: '-__v'
+        })
+        .select('-__v')
+        .sort({ _id: -1 })
         .then(dbPizzaData => res.json(dbPizzaData))
         .catch(err => {
             console.log(err);
